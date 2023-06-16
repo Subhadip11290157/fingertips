@@ -12,7 +12,7 @@ image_canvas =np.zeros((720,1280,3), np.uint8)
 currentT=0
 previousT =0
 
-header_img = "Images"
+header_img = "header_images"
 header_img_list = os.listdir(header_img)
 overlay_image =[]
 

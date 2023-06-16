@@ -6,7 +6,7 @@ import cv2
 app = Flask(__name__,template_folder='templates')
 
 overlay_image=[]
-header_img = "Images"
+header_img = "header_images"
 header_img_list = os.listdir(header_img)
 for i in header_img_list:
     image = cv2.imread(f'{header_img}/{i}')
