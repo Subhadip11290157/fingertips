@@ -1,5 +1,4 @@
 ![<logo_pic>](logo.jpg)
-![<logo_pic>](logo.jpg)
 
 # fingertips
 
@@ -181,8 +180,8 @@ but rest all parts were white(255) and bitwise AND of 255 with any color is that
 but rest all parts were white(255) and bitwise AND of 255 with any color is that color,
 so no change observed for the remaining portions of the videoCapture image.
 
-But, this is not what we wanted, we want to see the colored drawing , not a black drawing.
-So, apply the colors of the Canvas window by doing bitwise **OR** :-
+But, this is not what we wanted, we wanted to see the colored drawing, not a black drawing.
+So, let's apply the colors of the Canvas window by doing bitwise **OR** :-
 
 ```
 img = cv2.bitwise_or(img,imgCanvas)
@@ -196,8 +195,6 @@ videoCapture frame. So, bitwise OR will keep the background of the videoCapture 
 which is just what we want.
 
 ### Problem 2:
-
-in drawing mode, everytime the painting began from 0,0 co-ordinate (top-left corner) giving an unwanted line joining (0,0) to the first co-ordinate of the tip of index finger.
 
 in drawing mode, everytime the painting began from 0,0 co-ordinate (top-left corner) giving an unwanted line joining (0,0) to the first co-ordinate of the tip of index finger.
 
