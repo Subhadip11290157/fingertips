@@ -1,4 +1,4 @@
-![Alt text](logo.jpg)
+![<logo_pic>](logo.jpg)
 
 # fingertips
 
@@ -100,21 +100,30 @@ A hands-free virtual painting/illustration tool
 
 ### Problem 1 :
 
-Screen gets overlayed with new frames (for 30 fps, it happens every 1/30th of a second)
+Screen gets replaced(refreshed) with new frames (say, for 30 fps, it happens every 1/30th of a second)
 So no drawing can be seen on videocapture.
 Solution : draw on a seperate canvas (a python window)
-and then intelligently overlay it on top of the videoCapture window :
+and then find a way to overlay it on top of the videoCapture window :
 
 #### How was it resolved :
 
 The main idea is to draw on a seperate window(say imgCanvas) and mask it over
 videoCapture image (say img)
 
-**a>** if we try overlaying the 2 windows with
-50% transperancy each, it looks pale and bad
-so, try plan B :-
 
-**b>** -> Convert imgCanvas from BGR to Gray
+**PLAN A**
+
+if we try overlaying the 2 windows with 50% transperancy each, it looks pale and clumsy
+
+**PLAN B**
+
+since overlapping two images by sharing transparency didn't work well, let's try merging them :-
+
+if we think the "Boolean" way, then black color == 0 (pixel intensity) == FALSE and any other color == NOT black == !0 == 1 == TRUE
+taking advantage of this we can use a mix of bitwise AND and OR operations to compare pixel-by-pixel two images at a time, 
+and then decide the pixel color based on the resut of these operations.
+
+**at first** -> Convert imgCanvas from BGR to Gray
 imgGray = cv2.cvtColor(imgCanvas, cv2.COLOR_BGR2GRAY)
 
 So what will happen is - after this step, the background will remain
@@ -125,12 +134,12 @@ same i.e. black, but all other colors will get white.
 ```
 _, imgInv = cv2.threshold(imgGray, 50, 255, cv2.THRESH_BINARY_INV)
 ```
-
+transformation: any pixel with intensity <=50 -> 255 and those >50 -> 0
 So what will happen is - after this step, the background will get white
 and the drawing will get black. This will be our mask image.
 
 - Next -> before we try to put our mask i.e. "imgInv" on "img', we
-  need to convert it back to BGR as colored images can't be operated with Grayscaled imgaes.
+  need to convert it back to BGR as colored images can't be operated with Grayscaled images due to incomaptible dimensions of numpy ndarays.
 
 ```
 imgInv = cv2.cvtColor(imgInv,cv2.COLOR_GRAY2BGR)
@@ -149,7 +158,7 @@ but all channels either 0 or 255)
 
 Now doing bitwise **AND** of black(0) (on invIng) with any other color(>0) (on img)
 will give 0 i.e. black -> so our drawing will appear on img.
-but rest all parts were white so bitwise AND of 255 with any color is that color,
+but rest all parts were white(255) and bitwise AND of 255 with any color is that color,
 so no change observed for the remaining portions of the videoCapture image.
 
 But, this is not what we wanted, we want to see the colored drawing , not a black drawing.
@@ -168,8 +177,8 @@ which is just what we want.
 
 ### Problem 2:
 
-in drawing mode, everytime the painting began from 0,0 co-ordinate i.e. top-left corner
-which gave auckward looking lines.
+in drawing mode, everytime the painting began from 0,0 co-ordinate (top-left corner) giving an unwanted line joining (0,0) to the first co-ordinate of the tip of index finger.
+
 **reason** : x_prev and y_prev were initialized as (0,0) and line was drawn
 from (x_prev, y_prev) to (x_current, y_current)
 solution : add this code :
@@ -184,8 +193,15 @@ if(x_prev, y_prev=0,0): # i.e. the first move
 Now, drawing doesn't begin from top-left corner of screen but from the
 end of the last drawn line which too is weird.
 
-To fix it: apply the above fix at the start of every selection :
+To fix it: apply the same at the entry of drawing mode :
 
 ```
 x_prev, y_prev = x_current, y_current
 ```
+
+this ensures that in the next iteration, when we start to draw, the lines begin from the current finger position instead of the last finger position.
+
+<br>
+<br>
+
+-------------------------------------------------------------------
