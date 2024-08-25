@@ -50,23 +50,22 @@ while True:
         my_fingers = detector.fingerStatus()
         # print(my_fingers)
         if my_fingers[1] and my_fingers[2]:  # if both are up
-            xp, yp = 0, 0
             if y1 < 125:
-                if 200 < x1 < 340:
+                if 355 < x1 < 460:
                     default_overlay = overlay_image[0]
-                    draw_color = (255, 0, 0)
-                elif 340 < x1 < 500:
+                    draw_color = (235, 206, 135) # sky blue
+                elif 475 < x1 < 560:
                     default_overlay = overlay_image[1]
-                    draw_color = (47, 225, 245)
-                elif 500 < x1 < 640:
+                    draw_color = (47, 225, 245) # yellow
+                elif 610 < x1 < 685:
                     default_overlay = overlay_image[2]
-                    draw_color = (197, 47, 245)
-                elif 640 < x1 < 780:
+                    draw_color = (197, 47, 245) # pink
+                elif 755 < x1 < 865:
                     default_overlay = overlay_image[3]
-                    draw_color = (53, 245, 47)
-                elif 1100 < x1 < 1280:
+                    draw_color = (4, 169, 92)  # leaf green
+                elif 1060 < x1 < 1220:
                     default_overlay = overlay_image[4]
-                    draw_color = (0, 0, 0)
+                    draw_color = (0, 0, 0)  # black
 
             cv2.putText(
                 frame,
