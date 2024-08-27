@@ -131,7 +131,7 @@ while True:
                     thickness=brush_thickness,
                 )
 
-            xp, yp = x1, y1  # (i)
+        xp, yp = x1, y1  # (i)
 
     img_gray = cv2.cvtColor(
         image_canvas, cv2.COLOR_BGR2GRAY
