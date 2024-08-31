@@ -126,20 +126,6 @@ taking advantage of this we can use a mix of bitwise AND and OR operations to co
 and then decide the pixel color based on the resut of these operations.
 
 **at first** -> Convert imgCanvas from BGR to Gray
-
-**PLAN A**
-
-if we try overlaying the 2 windows with 50% transperancy each, it looks pale and clumsy
-
-**PLAN B**
-
-since overlapping two images by sharing transparency didn't work well, let's try merging them :-
-
-if we think the "Boolean" way, then black color == 0 (pixel intensity) == FALSE and any other color == NOT black == !0 == 1 == TRUE
-taking advantage of this we can use a mix of bitwise AND and OR operations to compare pixel-by-pixel two images at a time, 
-and then decide the pixel color based on the resut of these operations.
-
-**at first** -> Convert imgCanvas from BGR to Gray
 imgGray = cv2.cvtColor(imgCanvas, cv2.COLOR_BGR2GRAY)
 
 So what will happen is - after this step, the background will remain
