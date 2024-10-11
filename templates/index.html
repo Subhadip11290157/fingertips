@@ -1,18 +1,53 @@
-<HTML lang ='en'>
-    <html>
-        <title>Virtual Air Paint </title>
-        <head>
-            <link rel ='stylesheet' type="text/css" href= "{{ url_for('static',filename='style.css') }}">
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-        </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Introducing Fingertips: Draw/Sketch your thoughts on the fly with just your fingertips">
+    <title>Fingertips is All You Need</title>
+
+    <!-- Link to CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     
-        <h2>
-            Welcome to Virtual Air Paint
-        </h2>
-        <p class ="p1">powered by <span style="color: white; font-family: sans-serif;">OpenCV and Mediapipe</span></p>    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     
-        <body>
-            <img id ='bg' width=1280px height=720px src = "{{url_for('video_feed')}}">
-        </body>
-    </html>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+
+    <header>
+        <h1>#All @ your Fingertips</h1>
+    </header>
+
+    <main class="main-container">
+        <!-- Video Container (Left side) -->
+        <div class="video-container">
+            <img id="bg" src="{{ url_for('video_feed') }}" alt="Camera feed for drawing">
+        </div>
+
+        <!-- Instructions Box (Right side) -->
+        <div class="instructions-container">
+            <h2>How to Use:</h2>
+            <ol>
+                <li>Position your hands in front of the camera.</li>
+                <li>Use your index and middle fingers to select colors from the palette.</li>
+                <li>Use your index finger alone to draw or erase on the canvas.</li>
+                <li>Move your hand to draw lines in real-time.</li>
+            </ol>
+        </div>
+    </main>
+
+    <footer>
+        <p>Fingertips | It's time to Go Freehand in <span id="current-year"></span>!</p>
+    </footer>
+
+    <script>
+        const year = new Date().getFullYear();
+        document.getElementById('current-year').textContent = year;
+    </script>
+
+</body>
+</html>

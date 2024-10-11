@@ -1,0 +1,104 @@
+/* General resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f5f5f5;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Header styling */
+header {
+    text-align: center;
+    padding: 20px;  /* Reduced padding for a smaller header */
+    background-color: #ffffff;
+    border-bottom: 2px solid #dcdcdc;
+    width: 100%;
+}
+
+header h1 {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 36px;  /* Reduced font size */
+    color: #1e90ff;
+    margin-bottom: 5px;  /* Less bottom margin */
+}
+
+/* Main container for the video and instructions */
+.main-container {
+    display: flex;
+    justify-content: flex-start; /* Align items from the start (left) */
+    align-items: flex-start;     /* Align items at the top */
+    width: 100%;                 /* Take up the full width of the screen */
+    padding: 10px;               /* Reduced padding */
+    flex-grow: 1;
+}
+
+/* Video container styling */
+.video-container {
+    flex: 0 0 70%; /* Video will take up 70% of the width */
+    margin-right: 20px; /* Gap between the video and instructions */
+    position: relative;
+}
+
+#bg {
+    width: 100%; /* Make the video responsive */
+    aspect-ratio: 16/9; /* Maintain the 16:9 aspect ratio */
+    border-radius: 10px;
+    object-fit: cover; /* Ensures the video covers the container without distortion */
+    border: 3px solid #1e90ff;
+}
+
+/* Instructions box styling */
+.instructions-container {
+    flex: 1; /* Take up the remaining space (30%) */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.instructions-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #1e90ff;
+}
+
+.instructions-container ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.instructions-container li {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-top: 0; /* Removed extra margin to lift footer */
+    padding-bottom: 15px; /* Space between the video and footer */
+    width: 100%; 
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+}
