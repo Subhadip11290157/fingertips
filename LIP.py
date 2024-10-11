@@ -1,3 +1,6 @@
+#
+# LIP == Local Independent Painter
+#
 import os
 import time
 

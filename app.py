@@ -1,7 +1,9 @@
 import os
+
 import cv2
 from flask import Flask, Response, render_template
-import cam
+
+import helper
 
 app = Flask(__name__,template_folder='templates')
 
@@ -18,10 +20,10 @@ def index():
     return render_template('index.html')
 
 def gen():
-    cam1 = cam.VideoCamera(overlay_image= overlay_image)
+    cam = helper.VideoCamera(overlay_image= overlay_image)
 
     while True:
-        frame = cam1.get_frame(overlay_image=overlay_image)
+        frame = cam.get_frame(overlay_image=overlay_image)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
