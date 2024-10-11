@@ -1,13 +1,14 @@
-from flask import Flask, render_template, Response  
-import cam
 import os
 import cv2
+from flask import Flask, Response, render_template
+import cam
 
 app = Flask(__name__,template_folder='templates')
 
 overlay_image=[]
 header_img = "header_images"
 header_img_list = os.listdir(header_img)
+
 for i in header_img_list:
     image = cv2.imread(f'{header_img}/{i}')
     overlay_image.append(image)
@@ -15,6 +16,7 @@ for i in header_img_list:
 @app.route('/')
 def index():
     return render_template('index.html')
+
 def gen():
     cam1 = cam.VideoCamera(overlay_image= overlay_image)
 
