@@ -3,7 +3,7 @@ import os
 import cv2
 import numpy as np
 
-import track_hands as TH  # Importing hand tracking module
+import helpers.track_hands as TH  # Importing hand tracking module
 
 
 class VideoCamera():

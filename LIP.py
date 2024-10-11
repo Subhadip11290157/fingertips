@@ -7,7 +7,7 @@ import time
 import cv2
 import numpy as np
 
-import track_hands as TH
+import helpers.track_hands as TH
 
 brush_thickness = 15
 eraser_thickness = 100

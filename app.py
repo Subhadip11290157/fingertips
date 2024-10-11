@@ -3,7 +3,7 @@ import os
 import cv2
 from flask import Flask, Response, render_template
 
-import helper
+from helpers import web_helper
 
 app = Flask(__name__,template_folder='templates')
 
@@ -20,7 +20,7 @@ def index():
     return render_template('index.html')
 
 def gen():
-    cam = helper.VideoCamera(overlay_image= overlay_image)
+    cam = web_helper.VideoCamera(overlay_image= overlay_image)
 
     while True:
         frame = cam.get_frame(overlay_image=overlay_image)
