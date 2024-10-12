@@ -30,13 +30,30 @@
 
         <!-- Instructions Box (Right side) -->
         <div class="instructions-container">
-            <h2>How to Use:</h2>
+            <h2> -~ How to Use ~- </h2>
             <ol>
-                <li>Position your hands in front of the camera.</li>
-                <li>Use your index and middle fingers to select colors from the palette.</li>
-                <li>Use your index finger alone to draw or erase on the canvas.</li>
-                <li>Move your hand to draw lines in real-time.</li>
+                <li><b>Detection:</b> Show your palm straight 🖐 to the camera.</li>
+                <li><b>Selection:</b> Hover over any color or eraser with your index and middle fingers raised.</li>
+                <li><b>Painting:</b> Just use your index finger to sketch your thoughts on air!</li>
             </ol>
+
+            <!-- New Image Cycle Section -->
+            <div class="image-cycle-container">
+                <h3> -~ Quick Demo ~- </Quick></h3>
+                <img id="sample-image" class="sample-image" src="{{ url_for('static', filename='sample_images/1.png') }}" alt="Sample Drawing">
+            </div>
+
+            <!-- Notes Section -->
+            <p class="notes">
+                Recommendations for better results:
+            </p>
+
+            <!-- Custom Unordered List -->
+            <ul class="custom-bullets">
+                <li>background clarity: <i>avoid noisy background</i></li>
+                <li>hand movements: <i>try avoiding discrete and swift movements</i></li>
+                <li>distance from the camera: <i>preferably not too far</i></li>
+            </ul>
         </div>
     </main>
 
@@ -44,10 +61,30 @@
         <p>Fingertips | It's time to Go Freehand in <span id="current-year"></span>!</p>
     </footer>
 
+    <!-- JS for cycling images -->
     <script>
         const year = new Date().getFullYear();
         document.getElementById('current-year').textContent = year;
-    </script>
 
+        // JavaScript to cycle through images
+        const images = [
+            "{{ url_for('static', filename='sample_images/1.png') }}",
+            "{{ url_for('static', filename='sample_images/2.png') }}",
+            "{{ url_for('static', filename='sample_images/3.png') }}",
+            "{{ url_for('static', filename='sample_images/4.png') }}",
+            "{{ url_for('static', filename='sample_images/5.png') }}"
+        ];
+
+        let currentIndex = 0;
+        const sampleImageElement = document.getElementById('sample-image');
+
+        function cycleImages() {
+            currentIndex = (currentIndex + 1) % images.length; // Loop back to start after last image
+            sampleImageElement.src = images[currentIndex];
+        }
+
+        // Set image to change every 3 seconds
+        setInterval(cycleImages, 2000);
+    </script>
 </body>
 </html>
