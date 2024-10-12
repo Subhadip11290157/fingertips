@@ -41,14 +41,17 @@ def index():
     # Sort based on the extracted number
     image_files.sort(key=sort_key)  
 
+    # Prepend the static folder path to each image filename
+    image_files = [f'/static/sample_images/{file}' for file in image_files]
+
     # Pass the image file names to the template
     return render_template('index.html', image_files=image_files)
 
 def gen():
     cam = web_helper.VideoCamera(overlay_image= overlay_image)
-
+    t_prev = 0
     while True:
-        frame = cam.get_frame(overlay_image=overlay_image)
+        frame, t_prev = cam.get_frame(overlay_image=overlay_image, t_prev=t_prev)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
