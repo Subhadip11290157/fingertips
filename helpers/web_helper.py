@@ -1,4 +1,5 @@
 import os
+import time
 
 import cv2
 import numpy as np
@@ -42,7 +43,7 @@ class VideoCamera():
         frame[0:125, 0:1280] = self.default_overlay  # Display the overlay image on top of the frame
         return frame
 
-    def get_frame(self, overlay_image):
+    def get_frame(self, overlay_image, t_prev=0):
         # Capture the current frame from the webcam
         _, frame = self.cap.read()
         frame = cv2.flip(frame, 1)  # Flip the frame horizontally (mirror effect)
@@ -92,14 +93,14 @@ class VideoCamera():
                         frame[0:125, 0:1280] = self.default_overlay
 
                 # Display text for color selection mode
-                cv2.putText(frame, 'SELECT Mode', (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 255, 255), thickness=2, fontScale=1)
+                cv2.putText(frame, 'SELECT Mode', (900, 680), fontFace=cv2.FONT_HERSHEY_DUPLEX, color=(0, 255, 255), thickness=2, fontScale=0.9)
 
                 # Draw a line connecting index and middle fingers
                 cv2.line(frame, (self.x1, self.y1), (self.x2, self.y2), color=self.draw_color, thickness=3)
 
             # If only the index finger is up, enter painting mode (drawing on canvas)
             if my_fingers[1] and not my_fingers[2]:
-                cv2.putText(frame, "PAINT Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 255, 0), thickness=2, fontScale=1)
+                cv2.putText(frame, "PAINT Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_DUPLEX, color=(0, 255, 255), thickness=2, fontScale=0.9)
                 
                 # Draw a circle at the tip of the index finger (brush tip)
                 cv2.circle(frame, (self.x1, self.y1), 15, self.draw_color, thickness=-1)
@@ -133,9 +134,24 @@ class VideoCamera():
         frame = cv2.bitwise_and(frame, imginv)  # Mask the frame where drawing exists
         frame = cv2.bitwise_or(frame, self.image_canvas)  # Add the drawing on top of the frame
 
+        currentT = time.time()
+        previousT = t_prev
+        fps = 1 / (currentT - previousT)
+        previousT = currentT
+
+        cv2.putText(
+            frame,
+            "Render FPS:" + str(int(fps)),
+            (10, 685),
+            fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=0.8,
+            color=(0, 0, 255),
+            thickness=2,
+        )
+        
         # Encode the final frame as JPEG to be sent for rendering
         _, jpeg = cv2.imencode('.jpg', frame)
-        return jpeg.tobytes()
+        return jpeg.tobytes(), previousT
 
 def main():
     overlay_image = []  # List to store header images (color palettes)
@@ -149,14 +165,16 @@ def main():
 
     # Initialize the VideoCamera object with the overlay images
     cam1 = VideoCamera(overlay_image=overlay_image)
-
+    
+    t_prev = 0 # initially, time_elapsed=0s
+    
     while True:
         # Capture frame from the webcam
         ret, input_img = cam1.cap.read()
         input_img = cv2.flip(input_img, 1)  # Flip the frame horizontally
         
         # Process the frame and overlay images
-        my_frame = cam1.get_frame(frame=input_img, overlay_image=overlay_image)
+        my_frame, t_prev = cam1.get_frame(frame=input_img, overlay_image=overlay_image, t_prev=t_prev)
 
         # Display the output frame
         cv2.imshow('out', my_frame)
