@@ -74,10 +74,10 @@ while True:
                 frame,
                 "SELECT Mode",
                 (900, 680),
-                fontFace=cv2.FONT_HERSHEY_COMPLEX,
+                fontFace=cv2.FONT_HERSHEY_TRIPLEX,
                 color=(0, 255, 255),
                 thickness=2,
-                fontScale=1,
+                fontScale=0.9,
             )
             cv2.line(frame, (x1, y1), (x2, y2), color=draw_color, thickness=3)
 
@@ -87,10 +87,10 @@ while True:
                 frame,
                 "PAINT Mode",
                 (900, 680),
-                fontFace=cv2.FONT_HERSHEY_COMPLEX,
-                color=(255, 255, 0),
+                fontFace=cv2.FONT_HERSHEY_TRIPLEX,
+                color=(0, 255, 255),
                 thickness=2,
-                fontScale=1,
+                fontScale=0.9,
             )
             cv2.circle(frame, (x1, y1), 15, draw_color, thickness=-1)
 
@@ -162,8 +162,8 @@ while True:
         "Render FPS:" + str(int(fps)),
         (10, 670),
         fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-        fontScale=1,
-        color=(255, 0, 0),
+        fontScale=0.8,
+        color=(0, 0, 255),
         thickness=2,
     )
     
