@@ -2,3 +2,4 @@
 !.gitignore
 my_env/
 __pycache__
+archived/
