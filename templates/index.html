@@ -75,7 +75,7 @@
 
         function cycleImages() {
             currentIndex = (currentIndex + 1) % images.length; // Loop back to start after last image
-            sampleImageElement.src = '/static/sample_images/' + images[currentIndex];
+            sampleImageElement.src = images[currentIndex];
         }
 
         // Set image to change every 2 seconds
