@@ -4,7 +4,7 @@ import time
 import cv2
 import numpy as np
 
-import helpers.track_hands as TH  # Importing hand tracking module
+from helpers import track_hands as TH  # Importing hand tracking module
 
 
 class VideoCamera():
@@ -152,33 +152,3 @@ class VideoCamera():
         # Encode the final frame as JPEG to be sent for rendering
         _, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes(), previousT
-
-def main():
-    overlay_image = []  # List to store header images (color palettes)
-    header_img = "header_images"
-    
-    # Load all header images from the directory
-    header_img_list = os.listdir(header_img)
-    for i in header_img_list:
-        image = cv2.imread(f'{header_img}/{i}')
-        overlay_image.append(image)
-
-    # Initialize the VideoCamera object with the overlay images
-    cam1 = VideoCamera(overlay_image=overlay_image)
-    
-    t_prev = 0 # initially, time_elapsed=0s
-    
-    while True:
-        # Capture frame from the webcam
-        ret, input_img = cam1.cap.read()
-        input_img = cv2.flip(input_img, 1)  # Flip the frame horizontally
-        
-        # Process the frame and overlay images
-        my_frame, t_prev = cam1.get_frame(frame=input_img, overlay_image=overlay_image, t_prev=t_prev)
-
-        # Display the output frame
-        cv2.imshow('out', my_frame)
-        cv2.waitKey(1)  # Wait for 1 millisecond before processing the next frame
-
-if __name__ == "__main__":
-    main()
