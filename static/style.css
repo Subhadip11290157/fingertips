@@ -129,6 +129,9 @@ header h1 {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px; /* Adjust this width to make the container wider if needed */
+    min-height: 285px; /* Set a minimum height for the container */
 }
 
 .image-cycle-container h3 {
@@ -139,9 +142,9 @@ header h1 {
 
 .sample-image {
     width: 100%;
-    height: auto;
-    max-height: calc(100vw * 9 / 16); /* Ensure the image is not taller than the 16:9 ratio relative to viewport width */
-    object-fit: contain;
+    min-height: 225px;
+    /* max-height: calc(100vw * 9 / 16); /* Ensure the image is not taller than the 16:9 ratio relative to viewport width */
+    object-fit: fill;
     border: 2px solid #dcdcdc;
     border-radius: 5px; 
     transition: opacity 1s ease-in-out; /* Smooth transition for the carousel effect */

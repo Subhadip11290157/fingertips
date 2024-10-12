@@ -33,14 +33,14 @@
             <h2> -~ How to Use ~- </h2>
             <ol>
                 <li><b>Detection:</b> Show your palm straight 🖐 to the camera.</li>
-                <li><b>Selection:</b> Hover over any color or eraser with your index and middle fingers raised.</li>
-                <li><b>Painting:</b> Just use your index finger to sketch your thoughts on air!</li>
+                <li><b>Selection:</b> Hover over your choice with your index + middle fingers up ✌.</li>
+                <li><b>Painting:</b> Just use your index ☝ finger to sketch your thoughts on air!</li>
             </ol>
 
             <!-- New Image Cycle Section -->
             <div class="image-cycle-container">
-                <h3> -~ Quick Demo ~- </Quick></h3>
-                <img id="sample-image" class="sample-image" src="{{ url_for('static', filename='sample_images/1.png') }}" alt="Sample Drawing">
+                <h3> -~ Quick Demo ~- </h3>
+                <img id="image-carousel" class="sample-image" src="{{ url_for('static', filename='sample_images/1.png') }}" alt="Sample Drawing">
             </div>
 
             <!-- Notes Section -->
@@ -50,7 +50,7 @@
 
             <!-- Custom Unordered List -->
             <ul class="custom-bullets">
-                <li>background clarity: <i>avoid noisy background</i></li>
+                <li>background clarity: <i>avoid noisy bg</i></li>
                 <li>hand movements: <i>try avoiding discrete and swift movements</i></li>
                 <li>distance from the camera: <i>preferably not too far</i></li>
             </ul>
@@ -66,24 +66,19 @@
         const year = new Date().getFullYear();
         document.getElementById('current-year').textContent = year;
 
-        // JavaScript to cycle through images
-        const images = [
-            "{{ url_for('static', filename='sample_images/1.png') }}",
-            "{{ url_for('static', filename='sample_images/2.png') }}",
-            "{{ url_for('static', filename='sample_images/3.png') }}",
-            "{{ url_for('static', filename='sample_images/4.png') }}",
-            "{{ url_for('static', filename='sample_images/5.png') }}"
-        ];
 
+        // Image paths dynamically passed from Flask
+        const images = JSON.parse('{{ image_files | tojson | safe }}');
+        
         let currentIndex = 0;
-        const sampleImageElement = document.getElementById('sample-image');
+        const sampleImageElement = document.getElementById('image-carousel');
 
         function cycleImages() {
             currentIndex = (currentIndex + 1) % images.length; // Loop back to start after last image
-            sampleImageElement.src = images[currentIndex];
+            sampleImageElement.src = '/static/sample_images/' + images[currentIndex];
         }
 
-        // Set image to change every 3 seconds
+        // Set image to change every 2 seconds
         setInterval(cycleImages, 2000);
     </script>
 </body>
