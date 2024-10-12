@@ -7,7 +7,7 @@ import helpers.track_hands as TH  # Importing hand tracking module
 
 
 class VideoCamera():
-    def __init__(self, overlay_image=[], draw_color=(255, 200, 100)):
+    def __init__(self, overlay_image=[], draw_color=(81, 242, 56)):
         # Initialize video capture (webcam)
         self.cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         self.cap.set(3, 1280)  # Set the frame width
@@ -62,7 +62,7 @@ class VideoCamera():
             # Get the status of fingers (which are up or down)
             my_fingers = self.detector.fingerStatus()
 
-            # If both index and middle fingers are up, enter selection mode (color selector)
+            # If both index and middle fingers are up, enter SELECT mode
             if my_fingers[1] and my_fingers[2]:
                 # Reset previous drawing points
                 self.xp, self.yp = 0, 0
@@ -70,36 +70,36 @@ class VideoCamera():
                 # If the hand is within the top color palette area, change the color
                 if self.y1 < 125:
                     # Change color based on the x-position of the index finger
-                    if 200 < self.x1 < 340:
+                    if 355 < self.x1 < 460:
                         self.default_overlay = overlay_image[0]
                         frame[0:125, 0:1280] = self.default_overlay
-                        self.draw_color = (255, 0, 0)  # Blue
-                    elif 340 < self.x1 < 500:
+                        self.draw_color = (255, 255, 0) # aqua blue
+                    elif 475 < self.x1 < 560:
                         self.default_overlay = overlay_image[1]
-                        self.draw_color = (47, 225, 245)  # Cyan
+                        self.draw_color = (47, 225, 245) # yellow
                         frame[0:125, 0:1280] = self.default_overlay
-                    elif 500 < self.x1 < 640:
+                    elif 610 < self.x1 < 685:
                         self.default_overlay = overlay_image[2]
-                        self.draw_color = (197, 47, 245)  # Purple
+                        self.draw_color = (197, 47, 245) # pink
                         frame[0:125, 0:1280] = self.default_overlay
-                    elif 640 < self.x1 < 780:
+                    elif 755 < self.x1 < 865:
                         self.default_overlay = overlay_image[3]
-                        self.draw_color = (53, 245, 47)  # Green
+                        self.draw_color = (81, 242, 56) # bright leafy green
                         frame[0:125, 0:1280] = self.default_overlay
-                    elif 1100 < self.x1 < 1280:
+                    elif 1060 < self.x1 < 1220:
                         self.default_overlay = overlay_image[4]
                         self.draw_color = (0, 0, 0)  # Eraser (Black)
                         frame[0:125, 0:1280] = self.default_overlay
 
-                # Display text for color selector mode
-                cv2.putText(frame, 'Color Selector Mode', (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 255, 255), thickness=2, fontScale=1)
+                # Display text for color selection mode
+                cv2.putText(frame, 'SELECT Mode', (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 255, 255), thickness=2, fontScale=1)
 
                 # Draw a line connecting index and middle fingers
                 cv2.line(frame, (self.x1, self.y1), (self.x2, self.y2), color=self.draw_color, thickness=3)
 
-            # If only the index finger is up, enter writing mode (drawing on canvas)
+            # If only the index finger is up, enter painting mode (drawing on canvas)
             if my_fingers[1] and not my_fingers[2]:
-                cv2.putText(frame, "Writing Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 255, 0), thickness=2, fontScale=1)
+                cv2.putText(frame, "PAINT Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 255, 0), thickness=2, fontScale=1)
                 
                 # Draw a circle at the tip of the index finger (brush tip)
                 cv2.circle(frame, (self.x1, self.y1), 15, self.draw_color, thickness=-1)
