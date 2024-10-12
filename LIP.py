@@ -31,7 +31,7 @@ cap.set(4, 720)
 cap.set(cv2.CAP_PROP_FPS, 60)
 
 default_overlay = overlay_image[0]
-draw_color = (255, 200, 100)
+draw_color = (81, 242, 56) # leafy green
 
 detector = TH.handDetector(min_detection_confidence=0.85)
 
@@ -56,7 +56,7 @@ while True:
             if y1 < 125:
                 if 355 < x1 < 460:
                     default_overlay = overlay_image[0]
-                    draw_color = (235, 206, 135) # sky blue
+                    draw_color = (255, 255, 0) # aqua blue
                 elif 475 < x1 < 560:
                     default_overlay = overlay_image[1]
                     draw_color = (47, 225, 245) # yellow
@@ -65,14 +65,14 @@ while True:
                     draw_color = (197, 47, 245) # pink
                 elif 755 < x1 < 865:
                     default_overlay = overlay_image[3]
-                    draw_color = (4, 169, 92)  # leaf green
+                    draw_color = (81, 242, 56) # leafy green
                 elif 1060 < x1 < 1220:
                     default_overlay = overlay_image[4]
                     draw_color = (0, 0, 0)  # black
 
             cv2.putText(
                 frame,
-                "Color Selector Mode",
+                "SELECT Mode",
                 (900, 680),
                 fontFace=cv2.FONT_HERSHEY_COMPLEX,
                 color=(0, 255, 255),
@@ -85,7 +85,7 @@ while True:
 
             cv2.putText(
                 frame,
-                "Writing Mode",
+                "PAINT Mode",
                 (900, 680),
                 fontFace=cv2.FONT_HERSHEY_COMPLEX,
                 color=(255, 255, 0),
@@ -159,7 +159,7 @@ while True:
 
     cv2.putText(
         frame,
-        "Client FPS:" + str(int(fps)),
+        "Render FPS:" + str(int(fps)),
         (10, 670),
         fontFace=cv2.FONT_HERSHEY_SIMPLEX,
         fontScale=1,
