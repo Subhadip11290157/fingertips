@@ -5,8 +5,7 @@ from flask import Flask, Response, render_template
 
 from helpers import web_helper
 
-app = Flask(__name__,template_folder='templates')
-
+app = Flask(__name__,template_folder='templates', static_folder='static')
 overlay_image=[]
 header_img = "header_images"
 header_img_list = os.listdir(header_img)
