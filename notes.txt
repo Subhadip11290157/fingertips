@@ -2,7 +2,16 @@
 
 # NOTES:
 
-# (i): Before drawing the next frame, update the coordinates to the latest finger position.
+# (i): If this update of co-ordinates is kept within "if my_fingers[1] and not my_fingers[2]:", then drawing will start from the last point where the painting was stopped. 
+
+    # Reason: The condition implies "only index finger is up", so keeping this line within this condition means to update the drawing co-ordinate 
+    only when index finger is up. This draws an unnecessary straight line connecting points between (a) and (b) :-
+    
+    # (a) where your index finger was up for the last time (before switing off from painting mode)
+    # (b) where your index finger currently is (while swithing on paint mode)
+
+    which looks like a glitch (try it out!)
+
 
 # (ii): Thresholding step ensures that pixels with intensity <= 50 are turned white, and those > 50 are turned black (inversion).
 
