@@ -150,8 +150,8 @@ while running:
                 cv2.line(frame, (xp, yp), (x1, y1), color=draw_color, thickness=brush_thickness)
                 cv2.line(image_canvas, (xp, yp), (x1, y1), color=draw_color, thickness=brush_thickness)
 
-            # Update the previous point to the current point
-            xp, yp = x1, y1  # (i)
+        # Update the previous point to the current point
+        xp, yp = x1, y1  # (i)
 
     # Convert the drawing canvas to grayscale
     img_gray = cv2.cvtColor(image_canvas, cv2.COLOR_BGR2GRAY)
