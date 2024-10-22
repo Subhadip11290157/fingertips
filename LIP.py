@@ -110,9 +110,13 @@ while running:
 
         # Get the status of each finger (up/down)
         my_fingers = detector.fingerStatus()
+        
+        current_mode = "DEFAULT Mode"
 
         # Selection mode: both index and middle fingers are up
         if my_fingers[1] and my_fingers[2]:
+            # Setting the mode
+            current_mode = "SELECT Mode"
             # Check if the hand is over the toolbar (header)
             if y1 < 125:
                 # Change colors and overlays based on finger position within the header
@@ -132,50 +136,14 @@ while running:
                     default_overlay = overlay_image[4]
                     draw_color = (0, 0, 0)  # Black (eraser mode)
 
-            current_mode = "SELECT Mode" 
-            # Calculate the width of the mode text
-            (mode_text_width, mode_text_height), baseline = cv2.getTextSize(current_mode, cv2.FONT_HERSHEY_SIMPLEX, font_scale, 2)
-
-            # Adjust the right padding based on the text width
-            padding_right = max(base_padding_right, mode_text_width + 20)  # 20 is additional space for aesthetics
-            
-            mode_text_position = (frame_width - padding_right, frame_height - padding_bottom)  # Right bottom corner with a width of 200 for text
-            
-            # Display "SELECT Mode" on the screen
-            cv2.putText(
-                frame,
-                current_mode,
-                mode_text_position,
-                fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                color=(0, 255, 255),
-                thickness=2,
-                fontScale=font_scale,
-            )
             # Draw a line between the tips of the index and middle fingers
             cv2.line(frame, (x1, y1), (x2, y2), color=draw_color, thickness=3)
 
         # Paint mode: only index finger is up
         if my_fingers[1] and not my_fingers[2]:
-            
+            # Setting the mode
             current_mode = "PAINT Mode" 
-            # Calculate the width of the mode text
-            (mode_text_width, mode_text_height), baseline = cv2.getTextSize(current_mode, cv2.FONT_HERSHEY_SIMPLEX, font_scale, 2)
-
-            # Adjust the right padding based on the text width
-            padding_right = max(base_padding_right, mode_text_width + 20)  # 20 is additional space for aesthetics
             
-            mode_text_position = (frame_width - padding_right, frame_height - padding_bottom)  # Right bottom corner with a width of 200 for text
-            
-            # Display "PAINT Mode" on the screen
-            cv2.putText(
-                frame,
-                current_mode,
-                mode_text_position,
-                fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                color=(0, 255, 255),
-                thickness=2,
-                fontScale=font_scale,
-            )
             # Draw a circle at the tip of the index finger
             cv2.circle(frame, (x1, y1), 15, draw_color, thickness=-1)
 
@@ -191,6 +159,25 @@ while running:
                 cv2.line(frame, (xp, yp), (x1, y1), color=draw_color, thickness=brush_thickness)
                 cv2.line(image_canvas, (xp, yp), (x1, y1), color=draw_color, thickness=brush_thickness)
 
+        # Calculate the width of the mode text
+        (mode_text_width, mode_text_height), baseline = cv2.getTextSize(current_mode, cv2.FONT_HERSHEY_SIMPLEX, font_scale, 2)
+
+        # Adjust the right padding based on the text width
+        padding_right = max(base_padding_right, mode_text_width + 20)  # 20 is additional space for aesthetics
+        
+        mode_text_position = (frame_width - padding_right, frame_height - padding_bottom)  # Right bottom corner with a width of 200 for text
+        
+        # Display "SELECT Mode" on the screen
+        cv2.putText(
+            frame,
+            current_mode,
+            mode_text_position,
+            fontFace=cv2.FONT_HERSHEY_DUPLEX,
+            color=(0, 255, 255),
+            thickness=2,
+            fontScale=font_scale,
+        )
+        
         # Before drawing the next frame, update the coordinates from previous finger position to the latest.
         # WARNING: Keep this indented out of this condition: "if my_fingers[1] and not my_fingers[2]:" (i)
         xp, yp = x1, y1 
