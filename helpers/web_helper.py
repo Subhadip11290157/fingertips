@@ -4,7 +4,7 @@ import time
 import cv2
 import numpy as np
 
-from helpers import track_hands as TH  # Importing hand tracking module
+from helpers import track_hands as TH  # Importing the hand tracking module
 
 
 class VideoCamera():
@@ -74,18 +74,18 @@ class VideoCamera():
                     if 355 < self.x1 < 460:
                         self.default_overlay = overlay_image[0]
                         frame[0:125, 0:1280] = self.default_overlay
-                        self.draw_color = (255, 255, 0) # aqua blue
+                        self.draw_color = (255, 255, 0)  # Aqua blue
                     elif 475 < self.x1 < 560:
                         self.default_overlay = overlay_image[1]
-                        self.draw_color = (47, 225, 245) # yellow
+                        self.draw_color = (47, 225, 245)  # Yellow
                         frame[0:125, 0:1280] = self.default_overlay
                     elif 610 < self.x1 < 685:
                         self.default_overlay = overlay_image[2]
-                        self.draw_color = (197, 47, 245) # pink
+                        self.draw_color = (197, 47, 245)  # Pink
                         frame[0:125, 0:1280] = self.default_overlay
                     elif 755 < self.x1 < 865:
                         self.default_overlay = overlay_image[3]
-                        self.draw_color = (81, 242, 56) # bright leafy green
+                        self.draw_color = (81, 242, 56)  # Bright leafy green
                         frame[0:125, 0:1280] = self.default_overlay
                     elif 1060 < self.x1 < 1220:
                         self.default_overlay = overlay_image[4]
@@ -134,11 +134,13 @@ class VideoCamera():
         frame = cv2.bitwise_and(frame, imginv)  # Mask the frame where drawing exists
         frame = cv2.bitwise_or(frame, self.image_canvas)  # Add the drawing on top of the frame
 
+        # Calculate the FPS (Frames per second) for rendering performance display
         currentT = time.time()
         previousT = t_prev
         fps = 1 / (currentT - previousT)
         previousT = currentT
 
+        # Display the FPS on the screen
         cv2.putText(
             frame,
             "Render FPS:" + str(int(fps)),

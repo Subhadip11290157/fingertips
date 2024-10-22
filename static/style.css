@@ -2,169 +2,167 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ensures padding and borders are included in element dimensions */
 }
 
 html, body {
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #f5f5f5;
-    height: 100%;
+    font-family: Arial, sans-serif; /* Default font */
+    color: #333; /* Default text color */
+    background-color: #f5f5f5; /* Light gray background */
+    height: 100%; /* Full viewport height */
 }
 
 body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Space between header, main, and footer */
+    align-items: center; /* Center the content horizontally */
 }
 
 /* Header styling */
 header {
     text-align: center;
-    padding: 10px;
-    background-color: #ffffff;
-    border-bottom: 2px solid #dcdcdc;
-    width: 100%;
+    padding: 10px; /* Space inside the header */
+    background-color: #ffffff; /* White background */
+    border-bottom: 2px solid #dcdcdc; /* Light gray border at the bottom */
+    width: 100%; /* Full-width header */
 }
 
 header h1 {
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 36px;
-    color: #1e90ff;
-    margin-bottom: 5px;
+    font-family: 'Comic Sans MS', cursive; /* Fun, playful font for the title */
+    font-size: 36px; /* Large font size */
+    color: #1e90ff; /* Bright blue text color */
+    margin-bottom: 5px; /* Small margin below the title */
 }
 
 /* Main container for the video and instructions */
 .main-container {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    padding: 10px;
-    flex-grow: 1;
+    justify-content: flex-start; /* Align items from left */
+    align-items: flex-start; /* Align items at the top */
+    width: 100%; /* Full width */
+    padding: 10px; /* Space around the main content */
+    flex-grow: 1; /* Allow the container to expand and fill available space */
 }
 
 /* Video container styling */
 .video-container {
-    flex: 0 0 75%; /* Video will take up 70% of the width */
-    margin-right: 20px;
-    position: relative;
+    flex: 0 0 75%; /* Video takes up 75% of the width */
+    margin-right: 20px; /* Space between the video and instructions */
+    position: relative; /* Enables absolute positioning for child elements */
 }
 
 #bg {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 3px solid #1e90ff;
+    width: 100%; /* Full width of the container */
+    aspect-ratio: 16/9; /* Maintain a 16:9 aspect ratio */
+    border-radius: 10px; /* Rounded corners */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    border: 3px solid #1e90ff; /* Blue border around the video feed */
 }
 
 /* Instructions box styling */
 .instructions-container {
-    flex: 1;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    font-family: 'Monaco', monospace;
+    flex: 1; /* Take the remaining width after the video */
+    background-color: #fff; /* White background for instructions */
+    padding: 20px; /* Space inside the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a lifted effect */
+    position: relative; /* Enables positioning of inner elements */
+    font-family: 'Monaco', monospace; /* Monospace font for a code-like feel */
 }
 
 .instructions-container h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #1e90ff;
-    text-align: center;
+    font-size: 22px; /* Larger heading for instructions */
+    margin-bottom: 10px; /* Space below the heading */
+    color: #1e90ff; /* Blue text for emphasis */
+    text-align: center; /* Center the heading text */
 }
 
 .instructions-container ol {
-    list-style-type: decimal;
-    padding-left: 20px;
-    font-size: 16px;
-
+    list-style-type: decimal; /* Numbered list */
+    padding-left: 20px; /* Space for the list numbers */
+    font-size: 16px; /* Standard font size */
 }
 
 .instructions-container li {
-    margin: 10px 0;
-    line-height: 1.5;
-    font-size: 16px;
+    margin: 10px 0; /* Space between list items */
+    line-height: 1.5; /* Increase line spacing for readability */
+    font-size: 16px; /* Consistent font size */
 }
 
 .instructions-container p.notes {
-    margin-top: 20px; /* Add some space between the list and the note */
-    font-size: 16px; /* Smaller font size for notes */
-    color: #555; /* Use a slightly lighter color */
-    text-align: left; /* Ensure the notes are left-aligned */
-    font-weight: 550; /* Semi-bold weight */
+    margin-top: 20px; /* Space above the notes */
+    font-size: 16px; /* Slightly smaller font size for notes */
+    color: #555; /* Lighter gray for the notes text */
+    text-align: left; /* Left-align notes for clarity */
+    font-weight: 550; /* Semi-bold for emphasis */
 }
 
 .instructions-container ul.custom-bullets {
-    list-style-type: none; /* Remove the default bullets */
-    padding-left: 10px; /* Add some left padding for alignment */
-    margin-top: 10px; /* Space between the note and the list */
+    list-style-type: none; /* Remove default bullet points */
+    padding-left: 10px; /* Space to align the custom bullets */
+    margin-top: 10px; /* Space between the previous section and this list */
 }
 
 .instructions-container ul.custom-bullets li {
-    position: relative;
-    padding-left: 15px; /* Space for the custom bullet */
+    position: relative; /* Required for custom bullet positioning */
+    padding-left: 15px; /* Space for the custom bullet symbol */
     margin-bottom: 5px; /* Space between each list item */
-    font-size: medium;
+    font-size: medium; /* Standard font size */
 }
 
 .instructions-container ul.custom-bullets li::before {
-    content: '\003E'; /* Unicode for the '>' symbol */
+    content: '\003E'; /* Unicode character for '>' symbol */
     position: absolute;
-    left: 0;
+    left: 0; /* Align custom bullet to the left */
     top: 0;
-    color: #1e90ff; /* Change the color of the bullet */
-    font-weight: bold;
+    color: #1e90ff; /* Blue color for custom bullet */
+    font-weight: bold; /* Bold to make the bullet stand out */
 }
 
 /* Image cycle container styling */
 .image-cycle-container {
-    margin-top: 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px; /* Adjust this width to make the container wider if needed */
-    min-height: 285px; /* Set a minimum height for the container */
+    margin-top: 20px; /* Space above the container */
+    text-align: center; /* Center the content */
+    background-color: #f9f9f9; /* Light background for the image carousel */
+    padding: 10px; /* Padding inside the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%; /* Full width */
+    max-width: 500px; /* Limit the maximum width */
+    min-height: 285px; /* Minimum height to ensure consistency */
 }
 
 .image-cycle-container h3 {
-    color: #1e90ff;
-    font-size: 20px;
-    margin-bottom: 10px;
+    color: #1e90ff; /* Blue heading */
+    font-size: 20px; /* Medium heading size */
+    margin-bottom: 10px; /* Space below heading */
 }
 
 .sample-image {
-    width: 100%;
-    min-height: 225px;
-    /* max-height: calc(100vw * 9 / 16); /* Ensure the image is not taller than the 16:9 ratio relative to viewport width */
-    object-fit: fill;
-    border: 2px solid #dcdcdc;
-    border-radius: 5px; 
-    transition: opacity 1s ease-in-out; /* Smooth transition for the carousel effect */
-    display: block; /* Ensure it's displayed as a block */
+    width: 100%; /* Image takes up full width of the container */
+    min-height: 225px; /* Minimum height for consistency */
+    object-fit: fill; /* Ensure the image fills the container */
+    border: 2px solid #dcdcdc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    transition: opacity 1s ease-in-out; /* Smooth fade effect during transitions */
+    display: block; /* Block-level element to occupy full width */
     margin: 0 auto; /* Center the image */
 }
 
 /* Footer styling */
 footer {
-    text-align: center;
-    font-size: 14px;
-    color: #777;
-    margin-top: 0;
-    padding-bottom: 5px;
-    width: 100%; 
-    background-color: #fff;
-    position: fixed;
-    bottom: 0;
+    text-align: center; /* Center the footer text */
+    font-size: 14px; /* Small text size */
+    color: #777; /* Gray text color */
+    margin-top: 0; /* No margin at the top */
+    padding-bottom: 5px; /* Small padding at the bottom */
+    width: 100%; /* Full width */
+    background-color: #fff; /* White background */
+    position: fixed; /* Fixed position at the bottom of the page */
+    bottom: 0; /* Align to the bottom */
 }
 
 footer p {
-    margin: 0;
+    margin: 0; /* No margin for the footer text */
 }

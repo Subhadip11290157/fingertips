@@ -6,49 +6,53 @@
     <meta name="description" content="Introducing Fingertips: Draw/Sketch your thoughts on the fly with just your fingertips">
     <title>Fingertips are All You Need</title>
 
-    <!-- Link to CSS -->
+    <!-- Link to external CSS file for styling -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     
-    <!-- Google Fonts -->
+    <!-- Link to Google Fonts (Dancing Script font) -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
+    <!-- Favicon (icon displayed on the browser tab) -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
 
+    <!-- Header Section -->
     <header>
         <h1>#All @ your Fingertips</h1>
     </header>
 
+    <!-- Main Container: Holds both video feed and instructions -->
     <main class="main-container">
-        <!-- Video Container (Left side) -->
+        <!-- Video Feed Container (left side of the page) -->
         <div class="video-container">
             <img id="bg" src="{{ url_for('video_feed') }}" alt="Camera feed for drawing">
         </div>
 
-        <!-- Instructions Box (Right side) -->
+        <!-- Instructions Box (right side of the page) -->
         <div class="instructions-container">
             <h2> -~ How to Use ~- </h2>
             <ol>
+                <!-- Step-by-step guide for using the application -->
                 <li><b>Detection:</b> Show your palm straight 🖐 to the camera.</li>
                 <li><b>Selection:</b> Hover over your choice with your index + middle fingers up ✌.</li>
                 <li><b>Painting:</b> Just use your index ☝ finger to sketch your thoughts on air!</li>
             </ol>
 
-            <!-- New Image Cycle Section -->
+            <!-- Section for cycling through sample demo images -->
             <div class="image-cycle-container">
                 <h3> -~ Quick Demo ~- </h3>
+                <!-- Initial demo image that cycles every 2 seconds (handled by JS) -->
                 <img id="image-carousel" class="sample-image" src="{{ url_for('static', filename='sample_images/1.png') }}" alt="Sample Drawing">
             </div>
 
-            <!-- Notes Section -->
+            <!-- Notes Section: Tips for better experience -->
             <p class="notes">
                 Recommendations for better results:
             </p>
 
-            <!-- Custom Unordered List -->
+            <!-- Custom styled unordered list for recommendations -->
             <ul class="custom-bullets">
                 <li>background clarity: <i>avoid noisy bg</i></li>
                 <li>hand movements: <i>try avoiding discrete and swift movements</i></li>
@@ -57,28 +61,34 @@
         </div>
     </main>
 
+    <!-- Footer Section -->
     <footer>
         <p>Fingertips | It's time to Go Freehand in <span id="current-year"></span>!</p>
     </footer>
 
-    <!-- JS for cycling images -->
+    <!-- JavaScript Section -->
+
+    <!-- JS to display the current year in the footer -->
     <script>
-        const year = new Date().getFullYear();
-        document.getElementById('current-year').textContent = year;
+        const year = new Date().getFullYear();  // Get the current year
+        document.getElementById('current-year').textContent = year;  // Update the footer with the current year
+    </script>
 
-
-        // Image paths dynamically passed from Flask
+    <!-- JS for cycling through the demo images -->
+    <script>
+        // Image paths dynamically passed from Flask (as JSON)
         const images = JSON.parse('{{ image_files | tojson | safe }}');
         
-        let currentIndex = 0;
-        const sampleImageElement = document.getElementById('image-carousel');
+        let currentIndex = 0;  // Track the index of the current image
+        const sampleImageElement = document.getElementById('image-carousel');  // Reference to the image element
 
+        // Function to cycle through the images every 2 seconds
         function cycleImages() {
-            currentIndex = (currentIndex + 1) % images.length; // Loop back to start after last image
-            sampleImageElement.src = images[currentIndex];
+            currentIndex = (currentIndex + 1) % images.length;  // Loop back to the first image after the last one
+            sampleImageElement.src = images[currentIndex];  // Update the image source
         }
 
-        // Set image to change every 2 seconds
+        // Automatically change the image every 2 seconds
         setInterval(cycleImages, 2000);
     </script>
 </body>
