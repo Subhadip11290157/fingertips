@@ -43,18 +43,25 @@ cap.set(cv2.CAP_PROP_FPS, 60)  # Frames per second
 default_overlay = overlay_image[0]  # Initial header image
 draw_color = (81, 242, 56)  # Default color (leafy green)
 
+# Define padding values for texts
+padding_left = 15  # Padding from the left edge
+padding_bottom = 30  # Padding from the bottom edge
+base_padding_right = 15  # Padding from the right edge
+
 # Initialize hand tracking using the custom helper module
 detector = TH.handDetector(min_detection_confidence=0.85)
-
-# Variables to store previous coordinates (initially zero)
-xp = 0
-yp = 0
 
 # Create a blank canvas (black background) matching the screen size for drawing
 image_canvas = np.zeros((screen_height, screen_width, 3), np.uint8)
 
 # Create a resizable window
 cv2.namedWindow("Play_with_Paint", cv2.WINDOW_NORMAL)
+
+# Variables to store previous coordinates (initially zero)
+xp = 0
+yp = 0
+
+count_1 = 0
 
 # Main loop for real-time hand tracking and drawing
 running = True
@@ -66,12 +73,27 @@ while running:
 
     # Flip the frame horizontally to create a mirror effect
     frame = cv2.flip(frame, 1)
-
-    # Get the current frame's dimensions after flipping
-    frame_height, frame_width, _ = frame.shape
     
     # Resize the frame to match screen dimensions (upscaling)
     frame = cv2.resize(frame, (screen_width, screen_height))
+    
+    # Get the current frame's dimensions after resizing
+    frame_height, frame_width, _ = frame.shape
+    
+    # base font-scale
+    bfs = 0.5
+    
+    # default frame dimensions (in pixels):
+    base_width = 640
+    base_height = 480
+    
+    # magnify the font size in proportion to the smaller dimension (height or width of the window/screen)
+    if frame_height < frame_width:
+        mf = frame_height/base_height # magnification factor
+    else:
+        mf = frame_width/base_width # magnification factor
+        
+    font_scale = bfs*mf
 
     # Resize the default overlay image to match the screen width and apply it to the frame
     default_overlay_resized = cv2.resize(default_overlay, (screen_width, 125))
@@ -110,30 +132,49 @@ while running:
                     default_overlay = overlay_image[4]
                     draw_color = (0, 0, 0)  # Black (eraser mode)
 
+            current_mode = "SELECT Mode" 
+            # Calculate the width of the mode text
+            (mode_text_width, mode_text_height), baseline = cv2.getTextSize(current_mode, cv2.FONT_HERSHEY_SIMPLEX, font_scale, 2)
+
+            # Adjust the right padding based on the text width
+            padding_right = max(base_padding_right, mode_text_width + 20)  # 20 is additional space for aesthetics
+            
+            mode_text_position = (frame_width - padding_right, frame_height - padding_bottom)  # Right bottom corner with a width of 200 for text
+            
             # Display "SELECT Mode" on the screen
             cv2.putText(
                 frame,
-                "SELECT Mode",
-                (900, 680),
+                current_mode,
+                mode_text_position,
                 fontFace=cv2.FONT_HERSHEY_DUPLEX,
                 color=(0, 255, 255),
                 thickness=2,
-                fontScale=0.9,
+                fontScale=font_scale,
             )
             # Draw a line between the tips of the index and middle fingers
             cv2.line(frame, (x1, y1), (x2, y2), color=draw_color, thickness=3)
 
         # Paint mode: only index finger is up
         if my_fingers[1] and not my_fingers[2]:
+            
+            current_mode = "PAINT Mode" 
+            # Calculate the width of the mode text
+            (mode_text_width, mode_text_height), baseline = cv2.getTextSize(current_mode, cv2.FONT_HERSHEY_SIMPLEX, font_scale, 2)
+
+            # Adjust the right padding based on the text width
+            padding_right = max(base_padding_right, mode_text_width + 20)  # 20 is additional space for aesthetics
+            
+            mode_text_position = (frame_width - padding_right, frame_height - padding_bottom)  # Right bottom corner with a width of 200 for text
+            
             # Display "PAINT Mode" on the screen
             cv2.putText(
                 frame,
-                "PAINT Mode",
-                (900, 680),
+                current_mode,
+                mode_text_position,
                 fontFace=cv2.FONT_HERSHEY_DUPLEX,
                 color=(0, 255, 255),
                 thickness=2,
-                fontScale=0.9,
+                fontScale=font_scale,
             )
             # Draw a circle at the tip of the index finger
             cv2.circle(frame, (x1, y1), 15, draw_color, thickness=-1)
@@ -172,14 +213,17 @@ while running:
     currentT = time.time()
     fps = 1 / (currentT - previousT)
     previousT = currentT
+    
+    # Calculate dynamic positions for text
+    fps_text_position = (padding_left, frame_height - padding_bottom)  # Left bottom corner
 
     # Display FPS on the screen
     cv2.putText(
         frame,
         "Render FPS:" + str(int(fps)),
-        (10, 685),
+        fps_text_position,
         fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-        fontScale=0.8,
+        fontScale=font_scale,
         color=(0, 0, 255),
         thickness=2,
     )
