@@ -53,6 +53,9 @@ yp = 0
 # Create a blank canvas (black background) matching the screen size for drawing
 image_canvas = np.zeros((screen_height, screen_width, 3), np.uint8)
 
+# Create a resizable window
+cv2.namedWindow("Play_with_Paint", cv2.WINDOW_NORMAL)
+
 # Main loop for real-time hand tracking and drawing
 running = True
 while running:
