@@ -76,7 +76,7 @@ A hands-free virtual painting/illustration tool
 
     `ix> check which fingers are up : fingers = detector.fingersUp()`
 
-    **[ fingersUp() -> a custom function (user-made), which returns a boolean list for all 5 fingertips as:
+    **[ fingersUp() -> a custom function, which returns a boolean list for all 5 fingertips as:
     True -> if that finger is up, else False ]**
 
     `x> If index and middle fingers are up -> selection mode :`
