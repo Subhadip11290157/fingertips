@@ -1,5 +1,6 @@
 .*
 !.gitignore
+!.dockerignore
 my_env/
 __pycache__
 archived/
