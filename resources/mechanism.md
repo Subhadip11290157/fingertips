@@ -1,22 +1,43 @@
 ## How it works :-
 
-1.  A handtracking module is created using mediapipe
+
+### The central idea is to first track finger-points on frame and then apply specific conditions based on the finger status (up/down) and co-ordinates of each joint to do the magic.
+
+<br>
+
+<hr>
+
+### Steps involved:
+
+<br>
+
+1. A handtracking module is created using mediapipe,
     containing class: handDetector
-    containing methods:-
+    having methods:-
 
-         i> findHands
+<br>
 
-        ii> findPosition
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`i> findHands`
 
-        iii> fingersUp
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ii> findPosition`
 
-        iv> findDistance
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`iii> fingersUp`
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`iv> findDistance`
+
+<br>
+    
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(_This is a helper file which is loaded in the main file for detailed hand tracking_)
+
+  <br>
 
 2.  Now working on the main file:-
 
-    `i> load header files from folder`
+    `i> load header files (static toolbar) from folder`
 
-    `ii> capture video using webcam (cv2.videoCapture(0))`
+    For the toolbar, a static image is overlayed atop the frame for color/eraser selection.
+
+    `ii> capture video using the default camera (cv2.videoCapture(0))`
 
     `iii> initialize : detector = htm.handDetector(detectionCon=0.75, maxHands=1)`
 
@@ -24,7 +45,7 @@
 
     [Note: we don't increase the threshold for detectionCon too much or else it will be difficult for our hands to get tracked]
 
-    `iv> run an infinite while loop : (remains throughout the painting session)`
+    `iv> run an infinite loop : (remains active throughout the painting session)`
 
     `v> Import image from video using cap.read()` **_(where cap = cv2.VideoCapture(0))_**
 
@@ -53,7 +74,7 @@
     **[ fingersUp() -> a custom function, which returns a boolean list for all 5 fingertips as:
     True -> if that finger is up, else False ]**
 
-    `x> If index and middle fingers are up -> selection mode :`
+    `x> If index and middle fingers are up -> SELECT mode :`
 
     draw a rectangle from index finger tip to middle finger tip (width)
     and height = difference between ordinates of the two tips.
@@ -64,13 +85,21 @@
 
     decide drawColor based on which option (pixel-co-ord range) is the fingertip falling
 
-    `xi> only index finger up -> drawing mode : select drawColor of the selected option.`
+    `xi> only index finger up -> PAINT mode : select drawColor of the selected option.`
 
     **[ For eraser, circle radius is kept bigger and color is (0, 0, 0) (Black) ]**
 
     - **Reason why that works** : drawing black over any color means doing AND operation of any pixel value with 0 which gives 0 (0 and X = 0 in boolean logic). So, the effect of that color is removed.
 
-## PROBLEMS Encountered :
+
+<br>
+
+<hr>
+
+
+
+
+## PROBLEMS Encountered and Fixes:
 
 ### Problem 1 :
 
