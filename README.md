@@ -27,16 +27,16 @@ A hands-free virtual painting/illustration tool
 ## How it works :-
 
 1.  Make a handtracking module using mediapipe
-    containing class: handDetectopr
+    containing class: handDetector
     containing methods:-
 
-        ` i> findHands`
+         i> findHands
 
-        `ii> findPosition`
+        ii> findPosition
 
-        `iii> fingersUp`
+        iii> fingersUp
 
-        `iv> findDistance`
+        iv> findDistance
 
 2.  Now working on the main file:-
 
