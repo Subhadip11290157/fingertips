@@ -1,4 +1,4 @@
-![<logo_pic>](logo.jpg)
+![<logo_pic>](resources/logo.jpg)
 
 # fingertips
 

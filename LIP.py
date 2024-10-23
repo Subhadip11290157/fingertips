@@ -253,4 +253,4 @@ while running:
 cap.release()
 cv2.destroyAllWindows()
 
-# for NOTES (i) to (v) refer "notes.txt" file
+# for NOTES (i) to (v) refer "notes.txt" file inside "resources" directory
