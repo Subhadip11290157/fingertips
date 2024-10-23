@@ -35,3 +35,16 @@
 <br>
 
 ## 🤔 How it works? -> know [here](resources/mechanism.md)
+
+<br>
+
+##  <p align=center> -- A Quick Demo -- </p> 
+
+<br>
+
+![Alt text](resources/demo.gif)
+
+<br>
+
+
+<hr>
