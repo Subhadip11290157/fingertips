@@ -80,20 +80,20 @@ while running:
     # Get the current frame's dimensions after resizing
     frame_height, frame_width, _ = frame.shape
     
-    # base font-scale
-    bfs = 0.5
-    
     # default frame dimensions (in pixels):
     base_width = 640
     base_height = 480
     
-    # magnify the font size in proportion to the smaller dimension (height or width of the window/screen)
+    # default value of font scale
+    base_font_scale = 0.5
+    
+    # calculate magnification factor for font size in proportion to the smaller dimension (height or width of the window/screen)
     if frame_height < frame_width:
-        mf = frame_height/base_height # magnification factor
+        magnification_factor = frame_height/base_height
     else:
-        mf = frame_width/base_width # magnification factor
+        magnification_factor = frame_width/base_width
         
-    font_scale = bfs*mf
+    font_scale = base_font_scale*magnification_factor
 
     # Resize the default overlay image to match the screen width and apply it to the frame
     default_overlay_resized = cv2.resize(default_overlay, (screen_width, 125))
@@ -111,28 +111,48 @@ while running:
         # Get the status of each finger (up/down)
         my_fingers = detector.fingerStatus()
         
+        # placeholder for operation mode
         current_mode = "DEFAULT Mode"
 
         # Selection mode: both index and middle fingers are up
         if my_fingers[1] and my_fingers[2]:
             # Setting the mode
             current_mode = "SELECT Mode"
-            # Check if the hand is over the toolbar (header)
-            if y1 < 125:
-                # Change colors and overlays based on finger position within the header
-                if 355 < x1 < 460:
+            
+            # Base width used for fixed pixel ranges (initial default)
+            base_screen_width = 1280  # Reference width for 720p resolution
+
+            # Calculate the magnification factor based on the current screen width
+            magnification_factor = screen_width / base_screen_width
+
+            # Adjust the pixel ranges based on the magnification factor
+            # These are the original pixel ranges (355-460, 475-560, etc.)
+            range_1_min = int(355 * magnification_factor)
+            range_1_max = int(460 * magnification_factor)
+            range_2_min = int(475 * magnification_factor)
+            range_2_max = int(560 * magnification_factor)
+            range_3_min = int(610 * magnification_factor)
+            range_3_max = int(685 * magnification_factor)
+            range_4_min = int(755 * magnification_factor)
+            range_4_max = int(865 * magnification_factor)
+            eraser_range_min = int(1060 * magnification_factor)
+            eraser_range_max = int(1220 * magnification_factor)
+
+            # Ensure your fingers are in the toolbar area
+            if y1 < 125:  
+                if range_1_min < x1 < range_1_max:
                     default_overlay = overlay_image[0]
                     draw_color = (255, 255, 0)  # Aqua blue
-                elif 475 < x1 < 560:
+                elif range_2_min < x1 < range_2_max:
                     default_overlay = overlay_image[1]
                     draw_color = (47, 225, 245)  # Yellow
-                elif 610 < x1 < 685:
+                elif range_3_min < x1 < range_3_max:
                     default_overlay = overlay_image[2]
                     draw_color = (197, 47, 245)  # Pink
-                elif 755 < x1 < 865:
+                elif range_4_min < x1 < range_4_max:
                     default_overlay = overlay_image[3]
                     draw_color = (81, 242, 56)  # Leafy green
-                elif 1060 < x1 < 1220:
+                elif eraser_range_min < x1 < eraser_range_max:
                     default_overlay = overlay_image[4]
                     draw_color = (0, 0, 0)  # Black (eraser mode)
 
