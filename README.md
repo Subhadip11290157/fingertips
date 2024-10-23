@@ -32,8 +32,6 @@
 
 ## ✨ Run locally on your machine! -> follow steps [here](resources/runLocally.md)
 
-<a href="resources/runLocally.md" target="_blank">Open this file in a new tab</a>
-
 
 <br>
 
