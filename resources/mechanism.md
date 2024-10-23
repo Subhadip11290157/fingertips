@@ -1,6 +1,6 @@
 ## How it works :-
 
-1.  Make a handtracking module using mediapipe
+1.  A handtracking module is created using mediapipe
     containing class: handDetector
     containing methods:-
 
