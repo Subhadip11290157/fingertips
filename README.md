@@ -27,16 +27,16 @@ A hands-free virtual painting/illustration tool
 ## How it works :-
 
 1.  Make a handtracking module using mediapipe
-    containing class: handDetectopr
+    containing class: handDetector
     containing methods:-
 
-        ` i> findHands`
+         i> findHands
 
-        `ii> findPosition`
+        ii> findPosition
 
-        `iii> fingersUp`
+        iii> fingersUp
 
-        `iv> findDistance`
+        iv> findDistance
 
 2.  Now working on the main file:-
 
@@ -76,7 +76,7 @@ A hands-free virtual painting/illustration tool
 
     `ix> check which fingers are up : fingers = detector.fingersUp()`
 
-    **[ fingersUp() -> a custom function (user-made), which returns a boolean list for all 5 fingertips as:
+    **[ fingersUp() -> a custom function, which returns a boolean list for all 5 fingertips as:
     True -> if that finger is up, else False ]**
 
     `x> If index and middle fingers are up -> selection mode :`
